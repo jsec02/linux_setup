@@ -167,7 +167,7 @@ restore_from_restic() {
         "ssh" "wsl" "nftables" "services" "bash" "databases" "direnv" "dotfiles"
         "helix" "history" "kakoune" "nvim" "powershell" "python" "sql"
         "sqliterc" "vault" "yazi" "wt" "zellij" "zsh" "lightdm" "autostart"
-        "redshift" "wireguard" "navidrome" "packages" "fzf"
+        "redshift" "wireguard" "navidrome" "packages" "fzf" "poc"
     )
 
     local sudo_tags=("wsl" "nftables" "services" "lightdm" "wireguard" "navidrome")
