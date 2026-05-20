@@ -204,10 +204,10 @@ restore_from_restic() {
         "ssh" "wsl" "nftables" "services" "bash" "databases" "direnv" "dotfiles"
         "helix" "history" "kakoune" "nvim" "powershell" "python" "sql"
         "sqliterc" "vault" "yazi" "wt" "zellij" "zsh" "lightdm" "autostart"
-        "redshift" "wireguard" "navidrome" "packages" "fzf" "poc"
+        "redshift" "wireguard" "navidrome" "packages" "fzf" "poc" "resolv" "networkmanager"
     )
 
-    local sudo_tags=("wsl" "nftables" "services" "lightdm" "wireguard" "navidrome")
+    local sudo_tags=("wsl" "nftables" "services" "lightdm" "wireguard" "navidrome" "resolv" "networkmanager")
 
     # Loop over tags array and restore corresponding restic snapshots using sudo when necesary
     for tag in "${tags[@]}"; do
