@@ -55,6 +55,7 @@ install_pip2() {
     $CURL_FILE "/tmp/get-pip.py" \
         https://bootstrap.pypa.io/pip/2.7/get-pip.py
     python2 "/tmp/get-pip.py"
+    rm --force "/tmp/get-pip.py"
 }
 
 install_packages() {
