@@ -18,6 +18,7 @@ useradd -m -G wheel master
 passwd master
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 su master
+cd $HOME
 bash <(curl -sSL https://raw.githubusercontent.com/jsec02/setup_script/master/setup)
 ```
 
@@ -30,9 +31,9 @@ bash <(curl -sSL https://raw.githubusercontent.com/jsec02/setup_script/master/se
 Language                      files          blank        comment           code
 --------------------------------------------------------------------------------
 Bourne Again Shell                1             73             19            328
-Markdown                          1             13              4             34
+Markdown                          1             13              4             35
 --------------------------------------------------------------------------------
-SUM:                              2             86             23            362
+SUM:                              2             86             23            363
 --------------------------------------------------------------------------------
 ```
 <!-- CODE_STATISTICS_END -->
