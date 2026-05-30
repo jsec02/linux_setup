@@ -204,6 +204,7 @@ prompt_for_secrets() {
 }
 
 restore_from_restic() {
+    # Parser must return "ssh" tag first for passwordless auth, preventing hanging
     while read -r tag sudo; do
         local cmd=()
         [[ "$sudo" == "true" ]] && cmd=(sudo --preserve-env)
