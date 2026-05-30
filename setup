@@ -52,7 +52,14 @@ bootstrap_yay() {
 }
 
 bootstrap_inventory() {
-    sudo pacman -S --noconfirm git
+    case "$MACHINE" in
+        wsl) sudo pacman -S --noconfirm git python-pip ;;
+        pi) sudo apt install --yes git python3-pip ;;
+        kali) sudo apt install --yes git python3-pip ;;
+    esac
+
+    pip3 install pyyaml --break-system-packages
+
     git clone https://github.com/jsec02/inventory.git
 }
 
