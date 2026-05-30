@@ -46,9 +46,9 @@ update_system() {
 
 bootstrap_yay() {
     sudo pacman -S --noconfirm git base-devel
-    git clone https://aur.archlinux.org/yay.git "tmp/yay"
-    (cd "tmp/yay" && makepkg --syncdeps --install --noconfirm) # Build arch package from source
-    rm --recursive --force "tmp/yay"
+    git clone https://aur.archlinux.org/yay.git "/tmp/yay"
+    (cd "/tmp/yay" && makepkg --syncdeps --install --noconfirm) # Build arch package from source
+    rm --recursive --force "/tmp/yay"
 }
 
 install_pip2() {
