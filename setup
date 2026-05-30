@@ -274,6 +274,9 @@ setup_venvs() {
 }
 
 setup_zsa_qmk_firmware() {
+    # qmk setup may warn about missing avr tools (avr-gcc, avrdude, dfu-programmer)
+    # these are only needed for AVR-based keyboards; the Voyager uses ARM (arm-none-eabi-gcc)
+
     git clone https://github.com/zsa/qmk_firmware.git "$HOME/zsa_qmk_firmware"
     ln --symbolic "$HOME/qgmlwy" "$HOME/zsa_qmk_firmware/keyboards/zsa/voyager/keymaps/qgmlwy"
 
