@@ -238,10 +238,6 @@ setup_dashboard() {
         ghcr.io/gethomepage/homepage:latest
 }
 
-setup_glances() {
-    sudo systemctl enable --now glances-web
-}
-
 setup_tldr() {
     tldr --update
 }
@@ -335,6 +331,7 @@ setup_services() {
             sudo systemctl enable --now ssh
             sudo systemctl enable --now riven-sniper
             sudo systemctl enable --now qbittorrent-nox
+            sudo systemctl enable --now glances-web
             $CURL https://install.pi-hole.net | bash
             setup_jellyfin
             setup_navidrome
@@ -374,7 +371,6 @@ setup_pi() {
     restore_from_restic
     create_restic_repo
     setup_dashboard
-    setup_glances
     setup_tldr
     setup_uv
     setup_venvs
