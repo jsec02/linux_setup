@@ -74,20 +74,20 @@ install_packages() {
     case "$MACHINE" in
         # Get list of packages and pass it into corresponding package manager with xargs
         wsl)
-            python "$HOME/inventory/parser.py" packages wsl yay | xargs --no-run-if-empty yay -S --noconfirm
-            python "$HOME/inventory/parser.py" packages wsl pip3 | xargs --no-run-if-empty pip3 install --break-system-packages
+            python3 "$HOME/inventory/parser.py" packages wsl yay | xargs --no-run-if-empty yay -S --noconfirm
+            python3 "$HOME/inventory/parser.py" packages wsl pip3 | xargs --no-run-if-empty pip3 install --break-system-packages
             ;;
 
         pi)
-            python "$HOME/inventory/parser.py" packages pi apt | xargs --no-run-if-empty sudo apt insall --yes
-            python "$HOME/inventory/parser.py" packages pi pip3 | xargs --no-run-if-empty pip3 install --break-system-packages
+            python3 "$HOME/inventory/parser.py" packages pi apt | xargs --no-run-if-empty sudo apt insall --yes
+            python3 "$HOME/inventory/parser.py" packages pi pip3 | xargs --no-run-if-empty pip3 install --break-system-packages
             ;;
 
         kali)
-            python "$HOME/inventory/parser.py" packages kali apt | xargs --no-run-if-empty sudo apt insall --yes
+            python3 "$HOME/inventory/parser.py" packages kali apt | xargs --no-run-if-empty sudo apt insall --yes
             install_pip2
-            python "$HOME/inventory/parser.py" packages kali pip2 | xargs --no-run-if-empty pip2 install
-            python "$HOME/inventory/parser.py" packages kali pip3 | xargs --no-run-if-empty pip3 install --break-system-packages
+            python3 "$HOME/inventory/parser.py" packages kali pip2 | xargs --no-run-if-empty pip2 install
+            python3 "$HOME/inventory/parser.py" packages kali pip3 | xargs --no-run-if-empty pip3 install --break-system-packages
             ;;
     esac
 }
@@ -213,7 +213,7 @@ restore_from_restic() {
         # || true: restic exits non-zero when it cannot chown NTFS paths (e.g. /mnt/c in WSL)
         $cmd restore latest --tag "$tag" --host "$MACHINE" --target / </dev/tty || true
 
-    done < <(python "$HOME/inventory/parser.py" tags "$MACHINE")
+    done < <(python3 "$HOME/inventory/parser.py" tags "$MACHINE")
 
     # Fix cache permissions after sudo restores
     sudo chown -R "$USER:$USER" "$HOME/.cache/restic"
