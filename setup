@@ -79,12 +79,12 @@ install_packages() {
             ;;
 
         pi)
-            python3 "$HOME/inventory/parser.py" packages pi apt | xargs --no-run-if-empty sudo apt insall --yes
+            python3 "$HOME/inventory/parser.py" packages pi apt | xargs --no-run-if-empty sudo apt install --yes
             python3 "$HOME/inventory/parser.py" packages pi pip3 | xargs --no-run-if-empty pip3 install --break-system-packages
             ;;
 
         kali)
-            python3 "$HOME/inventory/parser.py" packages kali apt | xargs --no-run-if-empty sudo apt insall --yes
+            python3 "$HOME/inventory/parser.py" packages kali apt | xargs --no-run-if-empty sudo apt install --yes
             install_pip2
             python3 "$HOME/inventory/parser.py" packages kali pip2 | xargs --no-run-if-empty pip2 install
             python3 "$HOME/inventory/parser.py" packages kali pip3 | xargs --no-run-if-empty pip3 install --break-system-packages
