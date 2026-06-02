@@ -137,6 +137,23 @@ install_yazi() {
     esac
 }
 
+install_atuin() {
+    case "$MACHINE" in
+        pi)
+            $CURL \
+                "https://github.com/atuinsh/atuin/releases/latest/download/atuin-aarch64-unknown-linux-gnu.tar.gz" \
+                | gzip --decompress --stdout \
+                | sudo tar --extract --file=- --directory=/usr/local/bin --strip-components=1 "atuin-aarch64-unknown-linux-gnu/atuin"
+            ;;
+        kali)
+            $CURL \
+                "https://github.com/atuinsh/atuin/releases/latest/download/atuin-x86_64-unknown-linux-gnu.tar.gz" \
+                | gzip --decompress --stdout \
+                | sudo tar --extract --file=- --directory=/usr/local/bin --strip-components=1 "atuin-x86_64-unknown-linux-gnu/atuin"
+            ;;
+    esac
+}
+
 install_zellij() {
     case "$MACHINE" in
         pi)
@@ -174,11 +191,13 @@ install_deskflow() {
 install_optional_software() {
     case "$MACHINE" in
         pi)
+            install_atuin
             install_neovim
             install_yazi
             install_zellij
             ;;
         kali)
+            install_atuin
             install_neovim
             install_yazi
             install_zellij
