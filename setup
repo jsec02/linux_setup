@@ -243,6 +243,12 @@ setup_metasploit() {
     sudo msfdb init
 }
 
+setup_bloodhound() {
+    # The user needs to manually visit http://localhost:7474,
+    # change the password for neo4j, and update /etc/bhapi/bhapi.json
+    sudo bloodhound-setup
+}
+
 setup_dashboard() {
     sudo docker run --detach --name homepage \
         --env HOMEPAGE_ALLOWED_HOSTS=10.0.0.30:3000 \
@@ -405,6 +411,7 @@ setup_kali() {
     prompt_for_secrets
     restore_from_restic
     setup_metasploit
+    setup_bloodhound
     setup_tldr
     decompress_rockyou
     setup_services
