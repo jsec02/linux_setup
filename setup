@@ -178,7 +178,7 @@ install_deskflow() {
 
     url=$(curl --silent https://api.github.com/repos/deskflow/deskflow/releases/latest \
         | jq --raw-output '.assets[]
-        | select(.name | test("debian-trixie-x86_64.deb"))
+        | select(.name | test("debian-trixie-x86_64.deb$"))
         | .browser_download_url')
 
     $CURL_FILE "$path" "$url"
@@ -339,23 +339,23 @@ setup_jellyfin() {
 }
 
 setup_navidrome() {
+    local path url
+
     sudo mkdir --parents "/srv/navidrome/music"
     sudo chown -R "$USER:$USER" "/srv/navidrome"
 
-    local version
-    # Extract version from json
-    version=$($CURL \
-        https://api.github.com/repos/navidrome/navidrome/releases/latest \
-        | grep '"tag_name"' \
-        | cut --delimiter='"' --fields=4 \
-        | tr --delete 'v')
+    path="/tmp/navidrome_linux_arm64.deb"
 
-    $CURL_FILE "/tmp/navidrome_${version}_linux_arm64.deb" \
-        "https://github.com/navidrome/navidrome/releases/download/v${version}/navidrome_${version}_linux_arm64.deb"
+    url=$(curl --silent https://api.github.com/repos/navidrome/navidrome/releases/latest \
+        | jq --raw-output '.assets[]
+        | select(.name | test ("linux_arm64.deb$"))
+        | .browser_download_url')
 
-    sudo apt install --yes "/tmp/navidrome_${version}_linux_arm64.deb"
+    $CURL_FILE "$path" "$url"
 
-    rm "/tmp/navidrome_${version}_linux_arm64.deb"
+    sudo apt install --yes "$path"
+
+    rm "$path"
 
     sudo systemctl enable --now navidrome
 }
