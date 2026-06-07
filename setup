@@ -177,7 +177,7 @@ install_deskflow() {
     path=/tmp/deskflow-debian-trixie-x86_64.deb
 
     url=$(curl --silent https://api.github.com/repos/deskflow/deskflow/releases/latest \
-        | jq --raw-input '.assets[]
+        | jq --raw-output '.assets[]
         | select(.name | test("debian-trixie-x86_64.deb"))
         | .browser_download_url')
 
@@ -194,7 +194,7 @@ install_pwndbg() {
     path=/tmp/pwndbg_amd64.deb
 
     url=$(curl --silent https://api.github.com/repos/pwndbg/pwndbg/releases/latest \
-        | jq --raw-input '.assets[]
+        | jq --raw-output '.assets[]
         | select(.name | test ("amd64.deb$"))
         | select (.name | test ("lldb") | not)
         | .browser_download_url')
