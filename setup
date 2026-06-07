@@ -188,6 +188,20 @@ install_deskflow() {
     rm "/tmp/deskflow-${version}-debian-trixie-x86_64.deb"
 }
 
+install_pwndbg() {
+    url=$(curl --silent "https://api.github.com/repos/pwndbg/pwndbg/releases/latest" \
+        | jq -r '.assets[]
+        | select(.name | test ("amd64.deb$"))
+        | select (.name | test ("lldb") | not)
+        | .browser_download_url')
+
+    $CURL_FILE "/tmp/pwndbg_amd64.deb" "$url"
+
+    sudo apt install --yes "/tmp/pwndbg_amd64.deb"
+
+    rm "/tmp/pwndbg_amd64.deb"
+}
+
 install_optional_software() {
     case "$MACHINE" in
         pi)
@@ -202,6 +216,7 @@ install_optional_software() {
             install_yazi
             install_zellij
             install_deskflow
+            install_pwndbg
             ;;
     esac
 }
