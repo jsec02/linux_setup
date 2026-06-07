@@ -172,34 +172,38 @@ install_zellij() {
 }
 
 install_deskflow() {
-    local version
-    # Extract version from json
-    version=$($CURL \
-        https://api.github.com/repos/deskflow/deskflow/releases/latest \
-        | grep '"tag_name"' \
-        | cut --delimiter='"' --fields=4 \
-        | tr --delete 'v')
+    local url path
 
-    $CURL_FILE "/tmp/deskflow-${version}-debian-trixie-x86_64.deb" \
-        "https://github.com/deskflow/deskflow/releases/latest/download/deskflow-${version}-debian-trixie-x86_64.deb"
+    path=/tmp/deskflow-debian-trixie-x86_64.deb
 
-    sudo apt install --yes "/tmp/deskflow-${version}-debian-trixie-x86_64.deb"
+    url=$(curl --silent https://api.github.com/repos/deskflow/deskflow/releases/latest \
+        | jq --raw-input '.assets[]
+        | select(.name | test("debian-trixie-x86_64.deb"))
+        | .browser_download_url')
 
-    rm "/tmp/deskflow-${version}-debian-trixie-x86_64.deb"
+    $CURL_FILE "$path" "$url"
+
+    sudo apt install --yes "$path"
+
+    rm "$path"
 }
 
 install_pwndbg() {
-    url=$(curl --silent "https://api.github.com/repos/pwndbg/pwndbg/releases/latest" \
-        | jq -r '.assets[]
+    local url path
+
+    path=/tmp/pwndbg_amd64.deb
+
+    url=$(curl --silent https://api.github.com/repos/pwndbg/pwndbg/releases/latest \
+        | jq --raw-input '.assets[]
         | select(.name | test ("amd64.deb$"))
         | select (.name | test ("lldb") | not)
         | .browser_download_url')
 
-    $CURL_FILE "/tmp/pwndbg_amd64.deb" "$url"
+    $CURL_FILE "$path" "$url"
 
-    sudo apt install --yes "/tmp/pwndbg_amd64.deb"
+    sudo apt install --yes "$path"
 
-    rm "/tmp/pwndbg_amd64.deb"
+    rm "$path"
 }
 
 install_optional_software() {
