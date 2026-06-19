@@ -257,6 +257,10 @@ restore_from_restic() {
     sudo chown -R "$USER:$USER" "$HOME/.cache/restic"
 }
 
+create_restic_repo() {
+    restic init --repo "$HOME/restic"
+}
+
 setup_metasploit() {
     sudo systemctl enable --now postgresql
     sudo msfdb init
@@ -331,6 +335,13 @@ setup_zsa_qmk_firmware() {
     deactivate
 }
 
+setup_mariadb() {
+    sudo systemctl enable --now mariadb
+    mariadb-secure-installation
+    sudo mariadb --user=root --execute "CREATE USER 'master'@'localhost' IDENTIFIED BY ''"
+    sudo mariadb --user=root --execute "GRANT ALL PRIVILEGES ON *.* TO 'master'@'localhost'"
+}
+
 setup_jellyfin() {
     sudo mkdir --parents /srv/jellyfin/{movies,shows,educational}
     sudo chown --recursive "$USER:$USER" "/srv/jellyfin"
@@ -360,16 +371,13 @@ setup_navidrome() {
     sudo systemctl enable --now navidrome
 }
 
-create_restic_repo() {
-    restic init --repo "$HOME/restic"
-}
-
 setup_services() {
     sudo systemctl enable --now nftables
 
     case "$MACHINE" in
         wsl)
             sudo systemctl enable --now sshd
+            setup_mariadb
             ;;
         pi)
             sudo systemctl enable --now ssh
