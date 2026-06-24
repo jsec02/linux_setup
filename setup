@@ -408,6 +408,7 @@ setup_wsl() {
     prompt_for_secrets
     restore_from_restic
     setup_tldr
+    setup_uv
     setup_venvs
     setup_zsa_qmk_firmware
     setup_services
