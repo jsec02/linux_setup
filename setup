@@ -51,6 +51,10 @@ bootstrap_yay() {
     rm --recursive --force "/tmp/yay"
 }
 
+bootstrap_parsers() {
+    git clone https://github.com/jsec02/parsers.git
+}
+
 bootstrap_inventory() {
     case "$MACHINE" in
         wsl) sudo pacman -S --noconfirm git python-pip ;;
@@ -405,6 +409,7 @@ setup_wsl() {
     setup_locale
     update_system
     bootstrap_yay
+    bootstrap_parsers
     bootstrap_inventory
     install_packages
     prompt_for_secrets
@@ -419,6 +424,7 @@ setup_wsl() {
 setup_pi() {
     hush_login
     update_system
+    bootstrap_parsers
     bootstrap_inventory
     install_packages
     install_optional_software
@@ -435,6 +441,7 @@ setup_pi() {
 setup_kali() {
     hush_login
     update_system
+    bootstrap_parsers
     bootstrap_inventory
     install_packages
     install_optional_software
