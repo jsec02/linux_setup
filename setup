@@ -254,7 +254,7 @@ restore_from_restic() {
         [[ "$sudo" == "true" ]] && cmd="sudo --preserve-env restic"
 
         # </dev/tty: allows ssh interactive prompts to reach the terminal through the while read loop
-        $cmd restore latest --tag "$tag" --host "$MACHINE" --target / </dev/tty
+        $cmd restore latest --host "$MACHINE" --tag "$tag" --target / </dev/tty
 
     done < <(python3 "$HOME/parsers/inventory.py" tags "$MACHINE")
 
