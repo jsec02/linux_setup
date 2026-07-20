@@ -249,7 +249,7 @@ prompt_for_secrets() {
 
 restore_from_restic() {
     # Parser should return "ssh" tag first for passwordless auth
-    while read -r tag sudo; do
+    while read -r sudo tag; do
         local cmd="restic"
         [[ "$sudo" == "true" ]] && cmd="sudo --preserve-env restic"
 
