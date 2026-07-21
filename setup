@@ -256,6 +256,10 @@ restore_from_restic() {
         # </dev/tty: allows ssh interactive prompts to reach the terminal through the while read loop
         $cmd restore latest --host "$MACHINE" --tag "$tag" --target / </dev/tty
 
+        # Sudo restores write cache files as root
+        # Fix ownership before the next non-sudo tag
+        [[ "$cmd" != "restic" ]] && sudo chown -R "$USER:$USER" "$HOME/.cache/restic"
+
     done < <(python3 "$HOME/parsers/inventory.py" tags "$MACHINE")
 
     # Fix cache permissions after sudo restores
