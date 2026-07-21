@@ -354,7 +354,6 @@ setup_zsa_qmk_firmware() {
 setup_mariadb() {
     sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
     sudo systemctl enable --now mariadb
-    mariadb-secure-installation
     sudo mariadb --user=root --execute "CREATE USER 'master'@'localhost' IDENTIFIED BY ''"
     sudo mariadb --user=root --execute "GRANT ALL PRIVILEGES ON *.* TO 'master'@'localhost'"
 }
