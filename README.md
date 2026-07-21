@@ -7,7 +7,7 @@ Automates post-installation environment replication across WSL, Raspberry Pi, an
 This script assumes a user account is setup and logged in, as well as curl being installed.
 
 ```sh
-bash <(curl -sSL https://raw.githubusercontent.com/jsec02/setup_script/master/linux_setup)
+bash <(curl -sSL https://raw.githubusercontent.com/jsec02/linux_setup/master/setup)
 ```
 
 On WSL, no installer is run first so we manually create a user and configure sudo before running.
@@ -19,7 +19,13 @@ passwd master
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 su master
 cd $HOME
-bash <(curl -sSL https://raw.githubusercontent.com/jsec02/setup_script/master/linux_setup)
+bash <(curl -sSL https://raw.githubusercontent.com/jsec02/linux_setup/master/setup)
+```
+
+Post-script execution, restart the machine and run linksync to wire up dotfiles.
+
+```sh
+"$HOME/bash/scripts/linksync"
 ```
 
 <!-- CODE_STATISTICS_START -->
@@ -31,9 +37,9 @@ bash <(curl -sSL https://raw.githubusercontent.com/jsec02/setup_script/master/li
 Language                      files          blank        comment           code
 --------------------------------------------------------------------------------
 Bourne Again Shell                1             90             24            374
-Markdown                          1             13              4             35
+Markdown                          1             15              4             39
 --------------------------------------------------------------------------------
-SUM:                              2            103             28            409
+SUM:                              2            105             28            413
 --------------------------------------------------------------------------------
 ```
 <!-- CODE_STATISTICS_END -->
