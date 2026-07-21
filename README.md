@@ -10,6 +10,8 @@ This script assumes a user account is setup and logged in, as well as curl being
 bash <(curl -sSL https://raw.githubusercontent.com/jsec02/linux_setup/master/setup)
 ```
 
+#### WSL
+
 On WSL, no installer is run first so we manually create a user and configure sudo before running.
 
 ```sh
@@ -36,10 +38,10 @@ Post-script execution, restart the machine and run linksync to wire up dotfiles.
 --------------------------------------------------------------------------------
 Language                      files          blank        comment           code
 --------------------------------------------------------------------------------
-Bourne Again Shell                1             90             24            374
-Markdown                          1             15              4             39
+Bourne Again Shell                1             91             27            379
+Markdown                          1             16              4             40
 --------------------------------------------------------------------------------
-SUM:                              2            105             28            413
+SUM:                              2            107             31            419
 --------------------------------------------------------------------------------
 ```
 <!-- CODE_STATISTICS_END -->

@@ -266,6 +266,13 @@ restore_from_restic() {
     sudo chown -R "$USER:$USER" "$HOME/.cache/restic"
 }
 
+run_linksync() {
+    # Linksync depends on the machines hostname being either wsl, pi, or kali
+    # On the first boot of wsl, the hostname is not set correctly
+    # so when setting up wsl, we need to restart and run linksync manually
+    "$HOME/bash/scripts/linksync"
+}
+
 create_restic_repo() {
     restic init --repo "$HOME/restic"
 }
@@ -434,6 +441,7 @@ setup_pi() {
     install_optional_software
     prompt_for_secrets
     restore_from_restic
+    run_linksync
     create_restic_repo
     setup_dashboard
     setup_tldr
@@ -451,6 +459,7 @@ setup_kali() {
     install_optional_software
     prompt_for_secrets
     restore_from_restic
+    run_linksync
     setup_metasploit
     setup_bloodhound
     setup_tldr
