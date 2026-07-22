@@ -254,7 +254,9 @@ restore_from_restic() {
         [[ "$sudo" == "true" ]] && cmd="sudo --preserve-env restic"
 
         # </dev/tty: allows ssh interactive prompts to reach the terminal through the while read loop
-        $cmd restore latest --host "$MACHINE" --tag "$tag" --target / </dev/tty
+        # --ownership-by-name restores ownership by username rather than UID. This removes the fragility
+        # of the previous installations master UID needing to match the new installations master UID
+        $cmd restore latest --host "$MACHINE" --tag "$tag" --target / --ownership-by-name </dev/tty
 
         # Sudo restores write cache files as root
         # Fix ownership before the next non-sudo tag
