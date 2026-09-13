@@ -1,4 +1,4 @@
-### setup_script
+### linux_setup
 
 Automates post-installation environment replication across WSL, Raspberry Pi, and Kali Linux. Restores packages, dotfiles, databases, services, and configuration from Restic backups.
 
@@ -51,7 +51,7 @@ SUM:                              2            108             36            423
 ### Project Structure
 
 ```
-setup_script
+linux_setup
 ├── README.md
 └── setup
 
