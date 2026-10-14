@@ -44,29 +44,31 @@ update_system() {
     esac
 }
 
-bootstrap_yay() {
-    sudo pacman -S --noconfirm git base-devel
+setup_yay() {
+    sudo pacman -S --noconfirm base-devel
     git clone https://aur.archlinux.org/yay.git "/tmp/yay"
     (cd "/tmp/yay" && makepkg --syncdeps --install --noconfirm) # Build arch package from source
     rm --recursive --force "/tmp/yay"
 }
 
-bootstrap_parsers() {
-    git clone https://github.com/jsec02/parsers.git
-}
-
-bootstrap_inventory() {
+bootstrap_packages() {
     case "$MACHINE" in
         wsl) sudo pacman -S --noconfirm git python-pip ;;
         pi) sudo apt install --yes git python3-pip ;;
         kali) sudo apt install --yes git python3-pip ;;
     esac
+}
 
+bootstrap_inventory() {
     pip3 install pyyaml --break-system-packages
 
     git clone https://github.com/jsec02/linux_inventory.git
 
     mv linux_inventory inventory
+}
+
+bootstrap_parsers() {
+    git clone https://github.com/jsec02/parsers.git
 }
 
 install_pip2() {
@@ -428,12 +430,13 @@ disable_wifi_powersaving() {
 setup_wsl() {
     setup_locale
     update_system
-    bootstrap_yay
-    bootstrap_parsers
+    bootstrap_packages
     bootstrap_inventory
+    bootstrap_parsers
     install_packages
     prompt_for_secrets
     restore_from_restic
+    setup_yay
     setup_tldr
     setup_uv
     setup_venvs
@@ -445,8 +448,9 @@ setup_wsl() {
 setup_pi() {
     hush_login
     update_system
-    bootstrap_parsers
+    bootstrap_packages
     bootstrap_inventory
+    bootstrap_parsers
     install_packages
     install_optional_software
     prompt_for_secrets
@@ -463,8 +467,9 @@ setup_pi() {
 setup_kali() {
     hush_login
     update_system
-    bootstrap_parsers
+    bootstrap_packages
     bootstrap_inventory
+    bootstrap_parsers
     install_packages
     install_optional_software
     prompt_for_secrets
